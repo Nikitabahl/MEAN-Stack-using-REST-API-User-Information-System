@@ -1,0 +1,51 @@
+<!--
+View file for 'Display Users' tab in the web application
+@Version 1.0
+@author Nikita Bahl
+-->
+
+<html>
+<head>
+  <title>User Information</title>
+	<link href="/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <h2>User Information</h2>
+	<div class="nav_bar">
+	   <ul>
+       <li><a href="/index">Home</a></li>
+       <li><a href="/add">Add User</a></li>
+       <li><a href="/delete">Delete User</a></li>
+       <li><a href="/users" id="onlink">Display Users</a></li>
+       <li><a href="/display">Find User</a></li>
+       </ul>
+	</div>
+    <div class="main_container">
+        <table class="table table-inverse">
+      <thead>
+        <tr>
+          <th>Username</th>
+          <th>Display Name</th>
+          <th>Department</th>
+
+        </tr>
+      </thead>
+
+      <tbody>
+        <% for(var i=0; i < users.length; i++) { %>
+       <tr>
+
+         <td><%= users[i].username %></td>
+         <td><%= users[i].displayName %></td>
+         <td><%= users[i].department %></td>
+
+
+       </tr>
+    <% } %>
+      </tbody>
+
+    </table>
+
+    </div>
+</body>
+</html>

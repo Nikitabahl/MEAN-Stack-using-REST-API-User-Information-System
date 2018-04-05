@@ -1,0 +1,67 @@
+<!--
+View file for 'Delete User' tab in the web application
+@Version 1.0
+@author Nikita Bahl
+-->
+<html>
+<head>
+  <title>User Information</title>
+	<link href="/style.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <h2>User Information</h2>
+	<div class="nav_bar">
+	   <ul>
+       <li><a href="/index">Home</a></li>
+       <li><a href="/add">Add User</a></li>
+       <li><a href="/delete" id="onlink">Delete User</a></li>
+       <li><a href="/users">Display Users</a></li>
+       <li><a href="/display">Find User</a></li>
+       </ul>
+	</div>
+    <div class="main_container">
+        <p>
+          <label>Username</label>
+          <input type = "text"
+                 id = "username"/>
+        </p>
+            <input type="button" id="deleteButton" value="Delete" />
+            </p>
+            <h2 class="error" id="name_error" style = "margin-left: 525px;"></h2>
+    <h2 id="responseDiv" style = "margin-left: 525px;"></h2>
+    </div>
+</body>
+</html>
+<script>
+
+$(document).ready(function(){
+  $("#responseDiv").hide();
+});
+
+$("#deleteButton").click(function(){
+  if(document.getElementById('username').value.length == 0){
+    nameError = "Please enter username!";
+    document.getElementById("name_error").innerHTML = nameError;
+    document.getElementById('username').focus();
+    $("#responseDiv").hide();
+  }
+  else {
+    nameError = "";
+    document.getElementById("name_error").innerHTML = nameError;
+    var URL = '/users/'+$("#username").val();
+    $.ajax({
+          type: "DELETE",
+          url: URL,
+          success: function(json){
+            $("#responseDiv").html(json.message);
+            $("#responseDiv").show();
+          },
+          error: function(error,status) {
+            $("#responseDiv").html(error.responseJSON.message);
+            $("#responseDiv").show();
+         }
+    });
+  }
+});
+</script>

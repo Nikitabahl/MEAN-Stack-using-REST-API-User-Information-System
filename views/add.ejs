@@ -1,0 +1,121 @@
+<!--
+View file for 'Add User' tab in the web application
+@Version 1.0
+@author Nikita Bahl
+-->
+<html>
+<head>
+  <title>User Information</title>
+	<link href="/style.css" rel="stylesheet" type="text/css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <h2>User Information</h2>
+
+	<div class="nav_bar">
+	   <ul>
+       <li><a href="/index">Home</a></li>
+       <li><a href="/add" id="onlink">Add User</a></li>
+       <li><a href="/delete">Delete User</a></li>
+       <li><a href="/users">Display Users</a></li>
+       <li><a href="/display">Find User</a></li>
+       </ul>
+	</div>
+    <div class="main_container">
+        <p>
+          <label>Username</label>
+          <input type = "text" required="required"
+                 id = "username"/>
+        </p>
+        <p>
+          <label>Display Name</label>
+          <input type = "text" required="required"
+                  id = "displayName" />
+        </p>
+        <p>
+          <label>Department</label>
+          <input type = "text" required="required"
+                 id = "department" />
+        </p>
+            <input type="button"
+                   id="addButton"
+                   value="Submit">
+                   <h2 class="error" id="name_error" style = "margin-left: 550px;"></h2>
+                   <h2 class="error" id="dn_error" style = "margin-left: 550px;"></h2>
+                   <h2 class="error" id="dept_error" style = "margin-left: 550px;"></h2>
+                <h2 id="responseDiv" style = "margin-left: 550px;"></h2>
+    </div>
+</body>
+</html>
+<script>
+
+$(document).ready(function(){
+  $("#responseDiv").hide();
+});
+
+$("#addButton").click(function(){
+  var userName = $("#username").val();
+  var displayName = $("#displayName").val();
+  var department = $("#department").val();
+  if(userName.length == 0 || displayName.length == 0 || department.length == 0){
+    departmentError = "";
+    nameError = "";
+    displaynameError = "";
+    $("#responseDiv").hide();
+    document.getElementById("name_error").innerHTML = nameError;
+    document.getElementById("dn_error").innerHTML = displaynameError;
+    document.getElementById("dept_error").innerHTML = departmentError;
+
+    if(document.getElementById('username').value.length == 0){
+      nameError = "Please enter username!";
+      document.getElementById("name_error").innerHTML = nameError;
+      document.getElementById('username').focus();
+      $("#responseDiv").hide();
+    }
+
+    if(document.getElementById('displayName').value.length == 0){
+      displaynameError = "Please enter display Name!";
+      document.getElementById("dn_error").innerHTML = displaynameError;
+      document.getElementById('displayName').focus();
+      $("#responseDiv").hide();
+    }
+
+    if(document.getElementById('department').value.length == 0){
+      departmentError = "Please enter department!";
+      document.getElementById("dept_error").innerHTML = departmentError;
+      document.getElementById('department').focus();
+      $("#responseDiv").hide();
+    }
+  } else {
+    departmentError = "";
+    nameError = "";
+    displaynameError = "";
+
+    document.getElementById("name_error").innerHTML = nameError;
+    document.getElementById("dn_error").innerHTML = displaynameError;
+    document.getElementById("dept_error").innerHTML = departmentError;
+    var URL = '/users/'+userName;
+    var formData = {
+      "username": userName,
+      "displayName": displayName,
+      "department": department
+    }
+    formData = JSON.stringify(formData);
+    $.ajax({
+      url: URL,
+      type: 'POST',
+      data: formData,
+      success: function(data){
+        $("#responseDiv").html(data.message);
+        $("#responseDiv").show();
+      },
+      error: function(error,status) {
+        $("#responseDiv").html(error.responseJSON.message);
+        $("#responseDiv").show();
+      },
+      dataType: "json",
+      contentType : "application/json"
+    });
+  }
+});
+</script>

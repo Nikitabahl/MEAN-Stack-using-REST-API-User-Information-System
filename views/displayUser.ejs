@@ -1,0 +1,58 @@
+<!--
+View file for 'Display User' tab in the web application
+@Version 1.0
+@author Nikita Bahl
+-->
+<html>
+<head>
+  <title>User Information</title>
+	<link href="/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <h2>User Information</h2>
+	<div class="nav_bar">
+	   <ul>
+       <li><a href="/index">Home</a></li>
+       <li><a href="/add">Add User</a></li>
+       <li><a href="/delete">Delete User</a></li>
+       <li><a href="/users">Display Users</a></li>
+       <li><a href="/display" id="onlink">Find User</a></li>
+       </ul>
+	</div>
+    <div class="main_container">
+        <form>
+        <p>
+          <label>Username</label>
+          <input type = "text" id = "nameField"/>
+        </p>
+              <input type="button" value='Find' onclick="validateAndDisplayUser();"/>
+              <span class="error"><p id="name_error"></p></span>
+              <br>
+              <br>
+              <br>
+            <table class="table table-inverse" id ="userTable">
+            <thead>
+            <tr>
+              <th>Display Name</th>
+              <th>Department</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td><%= user.displayName %></td>
+              <td><%= user.department %></td>
+            </tr>
+            </tbody>
+          </table>
+    </form>
+    </div>
+</body>
+</html>
+
+<script>
+  function validateAndDisplayUser(){
+    if(document.getElementById('nameField').value.length == 0){
+      location.href='http://localhost:8000/display';
+    }
+  }
+</script>
