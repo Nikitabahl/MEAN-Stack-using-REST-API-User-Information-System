@@ -1,0 +1,22 @@
+version: '3'
+services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    restart: always
+  web:
+    image: docker-express-mongo-app
+    build: .
+    command: nodemon /app/app.js
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - "mongo"
+  adminmongo:
+   image: "mrvautin/adminmongo"
+   ports:
+      - "1234:1234"

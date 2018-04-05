@@ -1,0 +1,22 @@
+{
+  "name": "userinformation",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "*",
+    "cors": "^2.8.4",
+    "ejs": "^2.5.8",
+    "express": "^4.16.3",
+    "mongoose": "*",
+    "nodemon": "^1.17.2",
+    "request": "^2.85.0"
+  },
+  "author": "nikitabahl",
+  "license": "ISC",
+  "devDependencies": {},
+  "keywords": [],
+  "description": "Web application for user information"
+}
